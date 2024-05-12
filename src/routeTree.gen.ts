@@ -13,23 +13,23 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ModalsRouteImport } from './routes/modals/route'
 
 // Create Virtual Routes
 
-const Modal1LazyImport = createFileRoute('/modal1')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
-const Modal1LazyRoute = Modal1LazyImport.update({
-  path: '/modal1',
+const ModalsRouteRoute = ModalsRouteImport.update({
+  path: '/modals',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/modal1.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/modals/route.lazy').then(d => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/index.lazy').then(d => d.Route))
 
 // Populate the FileRoutesByPath interface
 
@@ -39,8 +39,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/modal1': {
-      preLoaderRoute: typeof Modal1LazyImport
+    '/modals': {
+      preLoaderRoute: typeof ModalsRouteImport
       parentRoute: typeof rootRoute
     }
   }
@@ -50,7 +50,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
-  Modal1LazyRoute,
+  ModalsRouteRoute,
 ])
 
 /* prettier-ignore-end */
