@@ -11,8 +11,10 @@ export const ModalComponent = (): React.ReactNode => {
 
   return (
     <div>
-      <button onClick={open}>Open Dialog</button>
-      <Dialog children={<></>} opener={opener} />
+      <button type='button' onClick={open}>
+        Open Dialog
+      </button>
+      <Dialog opener={opener}>モーダルの動作テスト</Dialog>
     </div>
   )
 }

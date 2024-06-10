@@ -1,39 +1,55 @@
 import type { Opener } from '@/hooks/opener'
 import { useCallback, useEffect, useRef } from 'react'
+import { modalFocus } from '@/functions/ModalFocus'
 
 export const Dialog = ({
   children,
   opener,
 }: { children: React.ReactNode; opener: Opener<boolean> }) => {
-  const dialog = useRef<HTMLDialogElement>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null!)
   const { close, isOpen, callback } = opener
 
   useEffect(() => {
     if (isOpen) {
-      dialog.current?.showModal()
+      document.addEventListener('keydown', e =>
+        modalFocus(e, dialogRef.current, close),
+      )
+      dialogRef.current?.showModal()
     }
     return () => {
+      document.removeEventListener('keydown', e =>
+        modalFocus(e, dialogRef.current, close),
+      )
       close()
     }
-  }, [isOpen])
+  }, [isOpen, close])
 
   const ok = useCallback(() => {
     callback(false, true)
     close()
-    dialog.current?.close()
-  }, [])
+    dialogRef.current?.close()
+  }, [callback, close])
 
   const ng = useCallback(() => {
     callback(false, false)
+    document.removeEventListener('keydown', e =>
+      modalFocus(e, dialogRef.current, close),
+    )
     close()
-    dialog.current?.close()
-  }, [])
+    dialogRef.current?.close()
+  }, [callback, close])
 
-  return (
-    <dialog ref={dialog}>
+  const dialogElement = (
+    <dialog ref={dialogRef}>
       {children}
-      <button onClick={ng}>NG</button>
-      <button onClick={ok}>OK</button>
+      <button type='button' onClick={ng}>
+        NG
+      </button>
+      <button type='button' onClick={ok}>
+        OK
+      </button>
     </dialog>
   )
+
+  return dialogElement
 }
