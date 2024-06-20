@@ -24,12 +24,12 @@ const IndexLazyImport = createFileRoute('/')()
 const ModalsRouteRoute = ModalsRouteImport.update({
   path: '/modals',
   getParentRoute: () => rootRoute,
-}).lazy(() => import('./routes/modals/route.lazy').then(d => d.Route))
+} as any).lazy(() => import('./routes/modals/route.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-}).lazy(() => import('./routes/index.lazy').then(d => d.Route))
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
