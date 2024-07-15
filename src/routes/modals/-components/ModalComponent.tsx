@@ -1,20 +1,21 @@
 import { Dialog } from '@/components/Dialog'
-import { useOpener } from '@/hooks/opener'
-import { useCallback } from 'react'
+import { useKeydown } from '@/hooks/useKeydown'
 
 export const ModalComponent = (): React.ReactNode => {
-  const callback = useCallback((v: boolean) => {
-    console.log(v)
-  }, [])
-
-  const [open, opener] = useOpener(callback)
+  const { dialogRef, handleShowModal, handleCloseModal } = useKeydown()
 
   return (
     <div>
-      <button type='button' onClick={open}>
+      <input type='text' />
+      <input type='text' />
+      <input type='text' />
+      <input type='text' />
+      <button type='button' onClick={handleShowModal}>
         Open Dialog
       </button>
-      <Dialog opener={opener}>モーダルの動作テスト</Dialog>
+      <Dialog handleCloseModal={handleCloseModal} dialogRef={dialogRef}>
+        モーダルの動作テスト
+      </Dialog>
     </div>
   )
 }
