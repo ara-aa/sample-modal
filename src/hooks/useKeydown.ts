@@ -31,7 +31,7 @@ export const useKeydown = () => {
     }
 
     return () => {
-      handleCloseModal
+      handleCloseModal()
     }
   }, [handleShowModal, handleCloseModal])
 
