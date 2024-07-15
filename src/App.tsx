@@ -14,6 +14,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootElement = document.getElementById('sample-modal-app')
+
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
