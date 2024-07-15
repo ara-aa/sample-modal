@@ -1,20 +1,35 @@
 import { Link, Outlet, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import {
+  Divider,
+  Stack,
+  Paper,
+  MenuList,
+  MenuItem,
+  ListItemText,
+} from '@mui/material'
 
 export const Route = createRootRoute({
   component: () => (
     <>
-      モーダルが開いている場合に背景の要素をタブキーで移動しないテスト
-      <div className='p-2 flex gap-2'>
-        <Link to='/' className='[&.active]:font-bold'>
-          Home
-        </Link>{' '}
-        <Link to='/modals' className='[&.active]:font-bold'>
-          modal1
-        </Link>{' '}
-      </div>
-      <hr />
-      <Outlet />
+      <Stack direction='row' spacing={2}>
+        <Paper sx={{ width: 320 }}>
+          <MenuList dense>
+            <MenuItem>
+              <ListItemText inset>
+                <Link to='/'>Home</Link>
+              </ListItemText>
+            </MenuItem>
+            <Divider />
+            <MenuItem>
+              <ListItemText inset>
+                <Link to='/modals'>modal1</Link>
+              </ListItemText>
+            </MenuItem>
+          </MenuList>
+        </Paper>
+        <Outlet />
+      </Stack>
       <TanStackRouterDevtools />
     </>
   ),

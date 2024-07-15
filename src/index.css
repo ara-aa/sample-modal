@@ -70,3 +70,20 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.dialog[open] {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  width: 35rem;
+}
+
+.dialog::backdrop {
+  background: rgba(0 0 0 / 32%);
+}
